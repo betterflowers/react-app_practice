@@ -1,52 +1,101 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
+class Counter extends React.Component {
 
-class Counter extends Component {
-  constructor(props) {
-    super(props)
-    
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            number: 0,
+        }
+    }
 
-//   handleResetSize = (event) => {
-//     const newSize = event.target.value ? parseInt(event.target.value) : 0;
-//     if(newSize !== this.state.size){
-//      this.setState({
-//          size: event.target.value? parseInt(event.target.value) : 0,
-//          totalValue:0
-//      });   
-//     }  
-//  }
+    render() {
+        return (
+            <div>
+                <button onClick={this.decreaseNum}>-</button>
+                <mark>{this.state.number}</mark>
+                <button onClick={this.increaseNum}>+</button>
+            </div>
+        )
+    }
 
-  render() {
-    
-    const { value, onIncrement, onDecrement } = this.props
-    return (
-      <div>
-        <label>Please input:
-            {/* <input onBlur={handleResetSize}></input> */}
-            </label>
-        Clicked: {value} times
-        {' '}
-        <button onClick={onIncrement}>
-          +
-        </button>
-        {' '}
-        <button onClick={onDecrement}>
-          -
-        </button>
-      </div>
-      
-    )
-  }
-}
+    increaseNum = () => {
+        this.setState({
+            number: this.state.number + 1
+        });
+        this.props['counter-increase']()
+    };
 
+    decreaseNum = () => {
+        this.setState({
+            number: this.state.number - 1
+        });
+        this.props['counter-decrease']()
+    };
 
-
-Counter.propTypes = {
-  value: PropTypes.number.isRequired,
-  onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired
+    static getDerivedStateFromProps(props, state) {
+        if (props.CounterNum !== state.CounterNum) {
+            return {
+                number: 0,
+                CounterNum: props.CounterNum
+            }
+        }
+        return null;
+    }
 }
 
 export default Counter
+
+
+// class Counter extends React.Component{
+//     constructor(props){
+//         super(props);
+//         this.state={
+//             value:0,
+//             count:0
+//         }
+//     }
+
+//     increase = () =>{
+//         this.setState(
+//             (preState) =>
+//             ({
+//                 value:preState.value+1      
+//             }) 
+                   
+//         )
+//         this.props.onIncrease()
+//     }
+
+//     decrease = () =>{
+//         this.setState(
+//             (preState) =>
+//             ({
+//                 value:preState.value-1
+//             })        
+//         )
+//         this.props.onDecrease()    
+//     }
+
+//     static getDerivedStateFromProps(props, state){
+//         if(props.size != state.count){
+//             return{
+//                     value:0,
+//                     count:props.size   
+//                 } 
+//         }
+//         return null;
+//     }
+
+//     render(){
+//         return (<div>
+//             <button onClick={this.increase}>+</button>
+//         <mark>{this.state.value}</mark>
+//             <button onClick={this.decrease}>-</button>
+//             <br/><br/>
+//         </div>)
+//     }
+
+// }
+
+// export default Counter;
