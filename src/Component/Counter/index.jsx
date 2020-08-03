@@ -4,7 +4,8 @@ class Counter extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            value:0
+            value:0,
+            count:0
         }
     }
 
@@ -27,6 +28,16 @@ class Counter extends React.Component{
             })        
         )
         this.props.onDecrease()    
+    }
+
+    static getDerivedStateFromProps(props, state){
+        if(props.size != state.count){
+            return{
+                    value:0,
+                    count:props.size   
+                } 
+        }
+        return null;
     }
 
     render(){
