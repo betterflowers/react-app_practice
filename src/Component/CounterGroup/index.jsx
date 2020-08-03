@@ -53,7 +53,9 @@ class CounterGroup extends React.Component {
             <label>Total value:{this.state.totalValue}
             </label>
             {
-                initArray.map(key => <Counter onIncrease={this.handleIncrease} onDecrease={this.handleDecrease} 
+                initArray.map(key => 
+                <Counter onIncrease={this.handleIncrease} 
+                onDecrease={this.handleDecrease} 
                    size={this.state.size} key={key} />
                 )
             }

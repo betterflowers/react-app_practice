@@ -1,54 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-class Counter extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            value:0,
-            count:0
-        }
-    }
 
-    increase = () =>{
-        this.setState(
-            (preState) =>
-            ({
-                value:preState.value+1      
-            }) 
-                   
-        )
-        this.props.onIncrease()
-    }
+class Counter extends Component {
+  constructor(props) {
+    super(props)
+    
+  }
 
-    decrease = () =>{
-        this.setState(
-            (preState) =>
-            ({
-                value:preState.value-1
-            })        
-        )
-        this.props.onDecrease()    
-    }
+//   handleResetSize = (event) => {
+//     const newSize = event.target.value ? parseInt(event.target.value) : 0;
+//     if(newSize !== this.state.size){
+//      this.setState({
+//          size: event.target.value? parseInt(event.target.value) : 0,
+//          totalValue:0
+//      });   
+//     }  
+//  }
 
-    static getDerivedStateFromProps(props, state){
-        if(props.size != state.count){
-            return{
-                    value:0,
-                    count:props.size   
-                } 
-        }
-        return null;
-    }
-
-    render(){
-        return (<div>
-            <button onClick={this.increase}>+</button>
-        <mark>{this.state.value}</mark>
-            <button onClick={this.decrease}>-</button>
-            <br/><br/>
-        </div>)
-    }
-
+  render() {
+    
+    const { value, onIncrement, onDecrement } = this.props
+    return (
+      <div>
+        <label>Please input:
+            {/* <input onBlur={handleResetSize}></input> */}
+            </label>
+        Clicked: {value} times
+        {' '}
+        <button onClick={onIncrement}>
+          +
+        </button>
+        {' '}
+        <button onClick={onDecrement}>
+          -
+        </button>
+      </div>
+      
+    )
+  }
 }
 
-export default Counter;
+
+
+Counter.propTypes = {
+  value: PropTypes.number.isRequired,
+  onIncrement: PropTypes.func.isRequired,
+  onDecrement: PropTypes.func.isRequired
+}
+
+export default Counter
