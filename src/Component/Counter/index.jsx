@@ -12,9 +12,11 @@ class Counter extends React.Component{
         this.setState(
             (preState) =>
             ({
-                value:preState.value+1
-            })        
-        )    
+                value:preState.value+1      
+            }) 
+                   
+        )
+        this.props.onIncrease()
     }
 
     decrease = () =>{
@@ -23,7 +25,8 @@ class Counter extends React.Component{
             ({
                 value:preState.value-1
             })        
-        )    
+        )
+        this.props.onDecrease()    
     }
 
     render(){
